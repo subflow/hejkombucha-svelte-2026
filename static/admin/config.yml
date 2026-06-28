@@ -1,0 +1,32 @@
+backend:
+  name: github
+  repo: jonas/hejkombucha2025
+
+media_folder: "static/images"
+public_folder: "/images"
+
+collections:
+  - name: "blog"
+    label: "Aktuellt"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "frontmatter"
+    extension: "md"
+    fields:
+      - {label: "Titel", name: "title", widget: "string"}
+      - {label: "Datum", name: "date", widget: "datetime"}
+      - {label: "Beskrivning", name: "description", widget: "string"}
+      - {label: "Bild", name: "image", widget: "image", required: false}
+      - {label: "Innehåll", name: "body", widget: "markdown"}
+      
+  - name: "pages"
+    label: "Sidor"
+    files:
+      - label: "Om Oss"
+        name: "about"
+        file: "src/content/pages/about.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string"}
+          - {label: "Beskrivning", name: "description", widget: "string"}
+          - {label: "Innehåll", name: "body", widget: "markdown"}
