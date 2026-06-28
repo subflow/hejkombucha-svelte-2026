@@ -1,6 +1,10 @@
 import { mdsvex } from 'mdsvex';
 import adapter from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -9,7 +13,9 @@ const config = {
 	preprocess: [vitePreprocess(), mdsvex({
 		extensions: ['.md', '.svx'],
 		layout: {
-			blog: 'src/lib/BlogLayout.svelte'
+			// `_` is the default layout applied to every post (frontmatter carries no `layout` field).
+			// Absolute path: mdsvex reads it from disk AND injects it as an import specifier.
+			_: join(__dirname, 'src/lib/BlogLayout.svelte')
 		}
 	})],
 	kit: { 

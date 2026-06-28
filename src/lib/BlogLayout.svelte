@@ -1,5 +1,4 @@
 <script>
-	// Props from frontmatter
 	export let title = '';
 	export let date = '';
 	export let description = '';
@@ -14,12 +13,11 @@
 	{/if}
 </svelte:head>
 
-<article class="max-w-4xl mx-auto px-4 py-12">
-	<!-- Header -->
+<article class="mx-auto max-w-4xl bg-cream px-4 py-12 text-brand">
 	<header class="mb-8">
-		<h1 class="text-4xl md:text-5xl font-bold text-red-600 mb-4">{title}</h1>
+		<h1 class="mb-4 text-4xl md:text-5xl">{title}</h1>
 		{#if date}
-			<time class="text-gray-600 text-lg" datetime={date}>
+			<time class="text-lg" datetime={date}>
 				{new Date(date).toLocaleDateString('sv-SE', {
 					year: 'numeric',
 					month: 'long',
@@ -28,53 +26,43 @@
 			</time>
 		{/if}
 		{#if description}
-			<p class="text-xl text-gray-700 mt-4 leading-relaxed">{description}</p>
+			<p class="mt-4 text-xl leading-relaxed">{description}</p>
 		{/if}
 	</header>
 
-	<!-- Featured Image -->
 	{#if image}
 		<div class="mb-8">
-			<img src={image} alt={title} class="w-full rounded-lg shadow-lg" />
+			<img src={image} alt={title} class="w-full" />
 		</div>
 	{/if}
 
-	<!-- Content -->
-	<div class="prose prose-lg prose-red max-w-none">
+	<div class="markdown prose prose-lg max-w-none text-ink">
 		<slot />
 	</div>
 </article>
 
 <style>
-	:global(.prose h2) {
-		@apply text-3xl font-semibold text-red-600 mt-8 mb-4;
+	:global(.markdown h2) {
+		color: var(--color-brand);
+		margin-top: 2rem;
+		margin-bottom: 1rem;
 	}
-	
-	:global(.prose h3) {
-		@apply text-2xl font-medium text-red-500 mt-6 mb-3;
+	:global(.markdown h3) {
+		color: var(--color-brand);
+		margin-top: 1.5rem;
+		margin-bottom: 0.75rem;
 	}
-	
-	:global(.prose p) {
-		@apply text-gray-800 leading-relaxed mb-4;
+	:global(.markdown a) {
+		color: var(--color-brand);
+		text-decoration: underline;
 	}
-	
-	:global(.prose ul, .prose ol) {
-		@apply ml-6 mb-4;
+	:global(.markdown a:hover) {
+		text-decoration: none;
 	}
-	
-	:global(.prose li) {
-		@apply mb-2;
-	}
-	
-	:global(.prose a) {
-		@apply text-red-600 underline hover:text-red-700 transition-colors;
-	}
-	
-	:global(.prose img) {
-		@apply rounded-lg shadow-md mx-auto;
-	}
-	
-	:global(.prose blockquote) {
-		@apply border-l-4 border-red-300 pl-6 italic text-gray-700 my-6;
+	:global(.markdown blockquote) {
+		border-left: 4px solid var(--color-brand);
+		padding-left: 1.5rem;
+		font-style: italic;
+		margin: 1.5rem 0;
 	}
 </style>

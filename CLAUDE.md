@@ -8,9 +8,13 @@ Website for "Hej Kombucha", a Swedish kombucha company in Örebro. All user-faci
 content is in Swedish.
 
 This is a **SvelteKit 2 / Svelte 5** app. The previous static HTML/CSS/JS site
-lives in `html-version/` and is now a legacy reference only — it is not built or
-served. The SvelteKit migration is in progress: the homepage (`src/routes/+page.svelte`)
-is still the default SvelteKit welcome page.
+lives in `html-version/` and is the **visual source of truth** — the Svelte pages
+are ported to match it. It is a legacy reference only and is not built or served.
+
+The marketing pages (home, `/stores`, `/about`) and the blog live under the
+`src/routes/(site)/` route group, which wraps them in shared `Header`/`Footer`
+(`src/lib/components/`). `/admin` sits outside that group so the CMS renders
+chrome-free.
 
 ## Commands
 
@@ -33,7 +37,12 @@ No test framework is configured. There is no single-test command.
 - **Framework**: SvelteKit 2 with Svelte 5 runes (`$props`, `$state`, `{@render ...}`).
   Deployed via `@sveltejs/adapter-node`.
 - **Styling**: Tailwind CSS 4 via the `@tailwindcss/vite` plugin (no `tailwind.config.js`;
-  config is CSS-first in `src/app.css`, which imports Tailwind and the typography plugin).
+  config is CSS-first in `src/app.css`). `app.css` defines the brand design system in a
+  Tailwind `@theme` block — colors `brand` (#f24440), `cream` (#f3f5f0), `ink` (#333),
+  fonts `display` (Space Grotesk) / `body` (Roboto Mono), and an `xs` breakpoint — plus
+  component classes (`.btn`, `.link`, `.card`, `.social`, `.markdown`, `.field`) that
+  recreate the original `sb-*`/`colors-*` system. Note: a stray/malformed CSS comment
+  before `@theme` silently disables the whole block, so keep comments well-formed.
 - **Markdown**: `mdsvex` (configured in `svelte.config.js`) processes `.md`/`.svx`.
   `.md` and `.svx` are registered as Svelte component extensions, so markdown files
   compile to components.
