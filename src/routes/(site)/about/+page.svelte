@@ -29,9 +29,9 @@
 					Hur får man för sig att starta ett företag som gör kombucha? Ja det kan man ju fråga sig.
 					Det är nog aldrig något jag planerade. Det började bara med att jag gjorde kombucha. Sen
 					tyckte jag det vore lite kul att göra en etikett. Jag hade ingen riktig ide till vad
-					företaget skulle heta så jag skrev bara "Hej detta är en Kombucha" som en placeholder tills
-					jag kom på något bättre(jag har inte kommit på något bättre). Sen började jag ge bort till
-					vänner, och alla (många i alla fall) sa att det var gott.
+					företaget skulle heta så jag skrev bara "Hej detta är en Kombucha" som en placeholder
+					tills jag kom på något bättre(jag har inte kommit på något bättre). Sen började jag ge
+					bort till vänner, och alla (många i alla fall) sa att det var gott.
 				</p>
 				<p>
 					Jag chansade lite och provade sälja den via en REKO(rekorderlig konsumtion)-grupp. Redan

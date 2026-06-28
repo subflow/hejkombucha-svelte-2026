@@ -2,6 +2,7 @@
 	// Demo newsletter form — mirrors the original static site (no backend yet).
 	let submitted = $state(false);
 
+	/** @param {SubmitEvent & { currentTarget: HTMLFormElement }} e */
 	function handleSubmit(e) {
 		e.preventDefault();
 		const data = Object.fromEntries(new FormData(e.currentTarget));
@@ -29,7 +30,14 @@
 			<div class="grid sm:grid-cols-2 sm:gap-x-4">
 				<div class="mb-4">
 					<label class="sr-only" for="firstName">Förnamn</label>
-					<input class="field" type="text" id="firstName" name="firstName" required placeholder="Förnamn" />
+					<input
+						class="field"
+						type="text"
+						id="firstName"
+						name="firstName"
+						required
+						placeholder="Förnamn"
+					/>
 				</div>
 				<div class="mb-4">
 					<label class="sr-only" for="lastName">Efternamn</label>
@@ -44,7 +52,13 @@
 					<input class="field" type="text" id="address" name="address" placeholder="Adress" />
 				</div>
 				<div class="mb-4 flex items-center sm:col-span-2">
-					<input class="mr-3 h-6 w-6 flex-shrink-0" type="checkbox" id="updatesConsent" name="updatesConsent" required />
+					<input
+						class="mr-3 h-6 w-6 flex-shrink-0"
+						type="checkbox"
+						id="updatesConsent"
+						name="updatesConsent"
+						required
+					/>
 					<label for="updatesConsent">Japp, jag godkänner att ni kontaktar mig då och då.</label>
 				</div>
 			</div>

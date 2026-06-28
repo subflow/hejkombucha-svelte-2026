@@ -1,8 +1,7 @@
 <script>
-	export let title = '';
-	export let date = '';
-	export let description = '';
-	export let image = '';
+	// Default mdsvex layout for blog posts. Frontmatter fields arrive as props;
+	// the rendered markdown arrives as `children`.
+	let { title = '', date = '', description = '', image = '', children } = $props();
 </script>
 
 <svelte:head>
@@ -37,7 +36,7 @@
 	{/if}
 
 	<div class="markdown prose prose-lg max-w-none text-ink">
-		<slot />
+		{@render children?.()}
 	</div>
 </article>
 

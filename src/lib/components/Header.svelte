@@ -25,7 +25,7 @@
 			<ul
 				class="absolute top-1/2 left-1/2 hidden w-auto -translate-x-1/2 -translate-y-1/2 space-x-8 lg:flex lg:items-center"
 			>
-				{#each nav as { href, label }}
+				{#each nav as { href, label } (href)}
 					<li><a class="link" {href}><span>{label}</span></a></li>
 				{/each}
 			</ul>
@@ -72,7 +72,11 @@
 						class="-mr-1 p-2 focus:outline-none"
 						onclick={() => (open = false)}
 					>
-						<svg class="h-6 w-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<svg
+							class="h-6 w-6 fill-current"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
+						>
 							<path
 								d="M5.293 6.707l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5.293-5.293 5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"
 							></path>
@@ -80,7 +84,7 @@
 					</button>
 				</div>
 				<ul class="mb-10 flex-grow space-y-6">
-					{#each nav as { href, label }}
+					{#each nav as { href, label } (href)}
 						<li><a class="link" {href} onclick={() => (open = false)}><span>{label}</span></a></li>
 					{/each}
 				</ul>

@@ -52,8 +52,8 @@
 		<blockquote class="w-full max-w-7xl">
 			<div class="text-center text-4xl sm:text-6xl sm:leading-tight">
 				<p>
-					"Vårat mål är att skapa en produkt med naturliga ingredienser och så lite miljöpåverkan som
-					möjligt."
+					"Vårat mål är att skapa en produkt med naturliga ingredienser och så lite miljöpåverkan
+					som möjligt."
 				</p>
 			</div>
 		</blockquote>

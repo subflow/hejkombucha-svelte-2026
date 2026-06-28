@@ -8,7 +8,10 @@ export async function load({ params }) {
 		error(404, `Could not find ${params.slug}`);
 	}
 
-	const post = await match[1]();
+	const post =
+		/** @type {{ default: import('svelte').Component, metadata: Record<string, string> }} */ (
+			await match[1]()
+		);
 
 	return {
 		content: post.default,

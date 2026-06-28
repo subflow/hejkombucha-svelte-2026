@@ -76,7 +76,7 @@
 		<div class="w-full max-w-7xl">
 			<h2 class="text-center">Återförsäljare</h2>
 			<div class="mt-12 grid gap-4 md:grid-cols-3">
-				{#each stores as store}
+				{#each stores as store (store.name)}
 					<article class="text-left">
 						<div class="mb-6">
 							<img class="inline-block" src="/images/{store.img}" alt={store.name} />

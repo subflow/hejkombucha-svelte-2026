@@ -6,7 +6,10 @@
 
 <svelte:head>
 	<title>Aktuellt - Hej Kombucha</title>
-	<meta name="description" content="Läs de senaste nyheterna från Hej Kombucha bryggeri i Lindbacka" />
+	<meta
+		name="description"
+		content="Läs de senaste nyheterna från Hej Kombucha bryggeri i Lindbacka"
+	/>
 	<meta property="og:title" content="Aktuellt - Hej Kombucha" />
 	<meta property="og:image" content="https://www.hejkombucha.se/images/og-share2.jpg" />
 </svelte:head>
@@ -22,7 +25,7 @@
 		<div class="w-full max-w-5xl">
 			{#if data.posts.length > 0}
 				<div class="grid gap-6 md:grid-cols-6 lg:gap-8">
-					{#each data.posts as post}
+					{#each data.posts as post (post.slug)}
 						<article class="card overflow-hidden md:col-span-3">
 							<div class="flex min-h-full flex-col">
 								{#if post.image}
