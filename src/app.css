@@ -1,24 +1,37 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-/* Brand theme — recreates the original site's colors-* / sb-* design system.
-   Palette: red #f24440, cream #f3f5f0, ink #333. Fonts: Space Grotesk (display) + Roboto Mono (body). */
+/* Hej Kombucha design system — ported from the Claude Design project
+   "Hej Kombucha Design System" (templates/website/Website.dc.html).
+   The brand is FLAT and SQUARE: no radius, no shadow. Structure comes from
+   1.5px ink hairlines, not elevation. */
 @theme {
 	--color-brand: #f24440;
+	--color-brand-ink: #d8302c;
+	--color-brand-tint: #fbe0df;
 	--color-cream: #f3f5f0;
-	--color-ink: #333333;
+	--color-ink: #111111;
+	--color-charcoal: #333333;
+	--color-muted: #6b6b66;
 
-	--font-display: 'Space Grotesk', sans-serif;
-	--font-body: 'Roboto Mono', monospace;
+	--font-display: 'Space Grotesk', 'Arial Narrow', sans-serif;
+	--font-body: 'Roboto Mono', ui-monospace, monospace;
 
 	--breakpoint-xs: 475px;
+}
+
+/* Hairline used by every bordered surface. Kept outside @theme so it can be
+   consumed directly as a border-width value. */
+:root {
+	--hkb-line: 1.5px;
+	--hkb-ease: cubic-bezier(0.2, 0, 0.1, 1);
 }
 
 @layer base {
 	body {
 		background-color: var(--color-cream);
 		font-family: var(--font-body);
-		color: var(--color-brand);
+		color: var(--color-ink);
 		min-height: 100vh;
 	}
 
@@ -30,68 +43,190 @@
 	h6,
 	blockquote {
 		font-family: var(--font-display);
+		font-weight: 700;
+		letter-spacing: -0.02em;
 		line-height: 1.15;
 		overflow-wrap: break-word;
 	}
 
-	/* Base heading sizes from the original styles.css; page-level text-* utilities override these. */
 	h1 {
-		font-size: 3.75rem;
-		font-weight: 500;
+		font-size: 3.5rem;
 	}
 	h2 {
-		font-size: 3rem;
-		font-weight: 400;
+		font-size: 2.5rem;
 	}
 	h3 {
 		font-size: 1.875rem;
-		font-weight: 400;
 	}
 	h4 {
-		font-size: 1.5rem;
-		font-weight: 500;
+		font-size: 1.375rem;
 	}
 	h5 {
-		font-size: 1.25rem;
-		font-weight: 500;
+		font-size: 1.125rem;
 	}
 	h6 {
-		font-size: 1.125rem;
-		font-weight: 500;
+		font-size: 1rem;
 	}
 }
 
 @layer components {
-	/* Buttons — square, 2px border, fill swaps to white on hover (matches sb-component-button). */
+	/* Kicker — the mono eyebrow label that sits above headlines. */
+	.kicker {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: var(--font-body);
+		font-size: 0.75rem;
+		font-weight: 500;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--color-brand);
+	}
+	.kicker-paper {
+		color: var(--color-cream);
+	}
+	.kicker-muted {
+		color: var(--color-muted);
+	}
+
+	/* Button — square, flat, mono label, signature arrow. */
 	.btn {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		border-width: 2px;
-		padding: 10px 20px;
-		text-align: center;
+		gap: 10px;
+		border: var(--hkb-line) solid var(--color-ink);
+		padding: 12px 22px;
+		font-family: var(--font-body);
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 1;
+		letter-spacing: 0.08em;
 		text-decoration: none;
-		transition: all 0.2s cubic-bezier(0.4, 0, 1, 1);
+		cursor: pointer;
+		transition:
+			background 200ms var(--hkb-ease),
+			color 200ms var(--hkb-ease),
+			border-color 200ms var(--hkb-ease);
 	}
+	.btn-sm {
+		padding: 8px 16px;
+		font-size: 12px;
+	}
+	.btn-lg {
+		padding: 16px 30px;
+		font-size: 15px;
+	}
+	.btn:disabled {
+		cursor: not-allowed;
+		opacity: 0.4;
+	}
+
 	.btn-primary {
-		border-color: var(--color-brand);
 		background-color: var(--color-brand);
+		border-color: var(--color-brand);
 		color: var(--color-cream);
 	}
 	.btn-primary:hover {
-		background-color: #fff;
-		color: var(--color-brand);
-	}
-	.btn-secondary {
-		border-color: var(--color-brand);
-		color: var(--color-brand);
-	}
-	.btn-secondary:hover {
-		background-color: #fff;
-		color: var(--color-brand);
+		background-color: var(--color-brand-ink);
+		border-color: var(--color-brand-ink);
 	}
 
-	/* Nav/inline link with the sliding underline (sb-component-link). */
+	.btn-secondary {
+		background-color: transparent;
+		border-color: var(--color-ink);
+		color: var(--color-ink);
+	}
+	.btn-secondary:hover {
+		background-color: var(--color-ink);
+		color: var(--color-cream);
+	}
+
+	.btn-inverse {
+		background-color: var(--color-ink);
+		border-color: var(--color-ink);
+		color: var(--color-cream);
+	}
+	.btn-inverse:hover {
+		background-color: var(--color-charcoal);
+		border-color: var(--color-charcoal);
+	}
+
+	.btn-link {
+		border: none;
+		background-color: transparent;
+		padding: 0;
+		color: var(--color-brand);
+		letter-spacing: 0.06em;
+		text-decoration: underline;
+		text-underline-offset: 4px;
+	}
+	.btn-link:hover {
+		color: var(--color-brand-ink);
+	}
+
+	/* Tag — the signature red marker for flags and small categorical labels. */
+	.tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 3px 10px;
+		font-family: var(--font-body);
+		font-size: 0.75rem;
+		font-weight: 600;
+		line-height: 1.4;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		background-color: var(--color-brand);
+		color: var(--color-cream);
+	}
+	.tag-ink {
+		background-color: var(--color-ink);
+		color: var(--color-cream);
+	}
+	.tag-outline {
+		background-color: transparent;
+		border: var(--hkb-line) solid var(--color-ink);
+		padding: 2px 9px;
+		color: var(--color-ink);
+	}
+
+	/* Card — flat white panel framed by a hairline ink border. */
+	.card {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		border: var(--hkb-line) solid var(--color-ink);
+		background-color: #fff;
+		color: var(--color-charcoal);
+		text-decoration: none;
+		transition: transform 200ms var(--hkb-ease);
+	}
+	.card-interactive:hover {
+		transform: translateY(-3px);
+	}
+
+	/* Filter chip — used by the retailer city filter. */
+	.chip {
+		border: var(--hkb-line) solid var(--color-ink);
+		background-color: transparent;
+		padding: 8px 16px;
+		font-family: var(--font-body);
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-ink);
+		cursor: pointer;
+		transition:
+			background 200ms var(--hkb-ease),
+			color 200ms var(--hkb-ease);
+	}
+	.chip[aria-pressed='true'] {
+		background-color: var(--color-ink);
+		color: var(--color-cream);
+	}
+
+	/* Nav/inline link with the sliding underline. */
 	.link {
 		position: relative;
 		display: inline-flex;
@@ -116,39 +251,27 @@
 		transform-origin: 0 50%;
 	}
 
-	/* White content card with red headings (sb-card under colors-c/d). */
-	.card {
-		background-color: #fff;
-		color: var(--color-ink);
-	}
-	.card h2,
-	.card h3 {
-		color: var(--color-brand);
-	}
-
-	/* Circular social icon button (sb-component-social-secondary under colors-d). */
+	/* Circular social icon button. */
 	.social {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		border-radius: 9999px;
-		border-width: 2px;
+		border: var(--hkb-line) solid currentColor;
 		padding: 0.5rem;
-		border-color: var(--color-brand);
-		color: var(--color-brand);
-		transition: all 0.2s cubic-bezier(0.4, 0, 1, 1);
+		transition: all 0.2s var(--hkb-ease);
 	}
 	.social:hover {
-		background-color: #fff;
-		color: var(--color-brand);
+		background-color: var(--color-cream);
+		color: var(--color-ink);
 	}
 
-	/* Long-form text block (sb-markdown): comfortable leading, hover-off underlines. */
+	/* Long-form text block. */
 	.markdown {
-		line-height: 1.625;
+		line-height: 1.7;
 	}
 	.markdown p {
-		margin: 1.5rem 0;
+		margin: 1.25rem 0;
 	}
 	.markdown p:first-child {
 		margin-top: 0;
@@ -160,24 +283,72 @@
 		text-decoration: none;
 	}
 	.markdown strong {
-		font-weight: 500;
+		font-weight: 600;
 	}
 
-	/* Form controls (sb-input / sb-checkbox) in a colors-d context. */
+	/* Form field — square, hairline ink box, red border on focus. */
 	.field {
 		width: 100%;
-		border-width: 2px;
-		border-color: var(--color-brand);
-		background-color: transparent;
-		padding: 0.75rem;
-		color: var(--color-brand);
+		box-sizing: border-box;
+		border: var(--hkb-line) solid var(--color-ink);
+		background-color: #fff;
+		padding: 12px 14px;
+		font-family: var(--font-body);
+		font-size: 1rem;
+		color: var(--color-ink);
+		transition: border-color 200ms var(--hkb-ease);
 	}
 	.field::placeholder {
-		color: var(--color-brand);
-		opacity: 0.75;
+		color: var(--color-muted);
 	}
 	.field:focus {
-		outline: 2px solid transparent;
+		outline: none;
+		border-color: var(--color-brand);
+	}
+
+	/* Checkbox — square ink box that fills red with a paper check when on. */
+	.check {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+		cursor: pointer;
+		font-family: var(--font-body);
+		font-size: 0.875rem;
+		line-height: 1.15;
+	}
+	.check input {
+		appearance: none;
+		flex: 0 0 auto;
+		width: 20px;
+		height: 20px;
+		margin: 1px 0 0;
+		border: var(--hkb-line) solid var(--color-ink);
+		background-color: #fff;
+		cursor: pointer;
+		transition: background 120ms var(--hkb-ease);
+	}
+	.check input:checked {
+		border-color: var(--color-brand);
+		background-color: var(--color-brand);
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.2 4.6 9 10 3' stroke='%23f3f5f0' stroke-width='2' stroke-linecap='square' fill='none'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	.check input:focus-visible {
+		outline: 2px solid var(--color-brand);
 		outline-offset: 2px;
+	}
+
+	/* Divider — ink hairline carrying a centered mono label. */
+	.divider {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+	}
+	.divider::before,
+	.divider::after {
+		content: '';
+		flex: 1;
+		border-top: var(--hkb-line) solid var(--color-ink);
 	}
 }

@@ -12,94 +12,97 @@
 	<meta property="og:image" content="https://www.hejkombucha.se/images/og-share2.jpg" />
 </svelte:head>
 
-<h1 class="sr-only">About</h1>
-
-<!-- Divider -->
-<div class="flex w-full justify-center bg-cream pt-0 pb-4 text-brand">
-	<div class="h-0 w-full max-w-7xl border-t border-current"></div>
-</div>
-
-<!-- Jonas' story -->
-<section class="flex flex-col justify-center bg-cream px-4 pt-32 pb-56 text-brand">
-	<div class="flex w-full justify-center">
-		<div class="w-full max-w-5xl">
-			<h2 class="text-left">Så du har startat ett bryggeri?</h2>
-			<div class="markdown mt-6 text-left sm:text-lg">
-				<p>
-					Hur får man för sig att starta ett företag som gör kombucha? Ja det kan man ju fråga sig.
-					Det är nog aldrig något jag planerade. Det började bara med att jag gjorde kombucha. Sen
-					tyckte jag det vore lite kul att göra en etikett. Jag hade ingen riktig ide till vad
-					företaget skulle heta så jag skrev bara "Hej detta är en Kombucha" som en placeholder
-					tills jag kom på något bättre(jag har inte kommit på något bättre). Sen började jag ge
-					bort till vänner, och alla (många i alla fall) sa att det var gott.
-				</p>
-				<p>
-					Jag chansade lite och provade sälja den via en REKO(rekorderlig konsumtion)-grupp. Redan
-					efter första gången jag var med så hörde en resturang av sig och ville köpa in den. Då
-					insåg jag att jag behövde ett företag för att kunna sälja den och få lokalen godkänd för
-					livsmedelsproduktion. Så allt hände på ett par månader då företaget mer eller mindre fann
-					mig istället för att jag försökte skapa ett företag.
-				</p>
-				<p>
-					Nu 2 år senare så har jag en ny lokal, och fortfarande i Lindbacka bruk där det känns som
-					att mitt företag hör hemma.
-				</p>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- Quote with background image -->
-<section class="relative flex flex-col justify-center bg-ink px-4 pt-96 pb-10 text-ink">
-	<div
-		class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-		style="background-image:url('/images/IMG_20210926_174925.jpg');opacity:0.7"
-	></div>
-	<div class="relative flex w-full justify-center">
-		<div class="w-full max-w-7xl">
-			<blockquote>
-				<div class="text-left text-4xl sm:text-6xl sm:leading-tight"></div>
-			</blockquote>
-		</div>
-	</div>
-</section>
-
-<!-- Team -->
-<section class="flex flex-col justify-center bg-cream px-4 pt-36 pb-72 text-brand">
-	<div class="flex w-full justify-center">
-		<div class="w-full max-w-5xl">
-			<h2 class="text-center">Teamet</h2>
-			<p class="mt-6 text-center text-lg sm:text-xl">
-				Det skulle såklart vara kul om det var ett team. Men det är egentligen bara en kille som
-				byter keps ett par gånger om dagen.
+<section class="bg-cream">
+	<!-- Story -->
+	<div class="mx-auto max-w-[720px] px-7 pt-18 pb-10">
+		<div class="kicker">Om oss</div>
+		<h1
+			class="mt-3.5 mb-8 font-display text-[clamp(34px,5vw,60px)] leading-none font-bold tracking-[-0.02em] text-ink"
+		>
+			Så du har startat ett bryggeri?
+		</h1>
+		<div class="flex flex-col gap-5 text-[16px] leading-[1.7] text-charcoal">
+			<p>
+				Hur får man för sig att starta ett företag som gör kombucha? Ja det kan man ju fråga sig.
+				Det är nog aldrig något jag planerade. Det började bara med att jag gjorde kombucha. Sen
+				tyckte jag det vore lite kul att göra en etikett. Jag hade ingen riktig idé till vad
+				företaget skulle heta så jag skrev bara <strong>”Hej detta är en Kombucha”</strong> som en placeholder
+				tills jag kom på något bättre (jag har inte kommit på något bättre). Sen började jag ge bort till
+				vänner, och alla (många i alla fall) sa att det var gott.
 			</p>
-			<div class="mt-12 grid gap-x-14 gap-y-12 sm:mt-20 sm:grid-cols-2">
-				<div class="space-y-12 sm:space-y-16">
-					<article>
-						<div class="mb-4">
-							<img
-								class="w-full"
-								src="/images/69955884_196432721355937_1899488696108041228_n.jpg"
-								alt="Jonas Olsson"
-							/>
-						</div>
-						<div>
-							<h3 class="text-xl"><span>Jonas</span> <span>Olsson</span></h3>
-							<p class="mt-1">Bryggmästare</p>
-						</div>
-					</article>
-				</div>
-			</div>
+			<p>
+				Jag chansade lite och provade sälja den via en REKO(rekorderlig konsumtion)-grupp. Redan
+				efter första gången jag var med så hörde en restaurang av sig och ville köpa in den. Då
+				insåg jag att jag behövde ett företag för att kunna sälja den och få lokalen godkänd för
+				livsmedelsproduktion. Så allt hände på ett par månader då företaget mer eller mindre fann
+				mig istället för att jag försökte skapa ett företag.
+			</p>
+			<p>
+				Nu 2 år senare så har jag en ny lokal, och fortfarande i Lindbacka bruk där det känns som
+				att mitt företag hör hemma.
+			</p>
+		</div>
+	</div>
+
+	<!-- Brewery -->
+	<div class="mx-auto max-w-[1140px] px-7">
+		<img
+			class="block h-[420px] w-full border-[1.5px] border-ink object-cover grayscale contrast-[1.05]"
+			src="/images/IMG_20210926_174925.jpg"
+			alt="Lindbacka bruk"
+		/>
+	</div>
+
+	<!-- Team -->
+	<div class="mx-auto max-w-[900px] px-7 pt-14 pb-6">
+		<div class="divider">
+			<span class="kicker whitespace-nowrap">Teamet</span>
+		</div>
+		<p class="mx-auto mt-6 mb-9 max-w-[520px] text-center text-[14px] leading-[1.6] text-muted">
+			Det skulle såklart vara kul om det var ett team. Men det är egentligen bara en kille som byter
+			keps ett par gånger om dagen.
+		</p>
+		<div class="grid items-end gap-8 sm:grid-cols-2">
+			<article>
+				<img
+					class="block w-full border-[1.5px] border-ink"
+					src="/images/69955884_196432721355937_1899488696108041228_n.jpg"
+					alt="Jonas Olsson"
+				/>
+				<h2 class="mt-4 mb-1 font-display text-2xl font-bold tracking-[-0.01em] text-ink">
+					Jonas Olsson
+				</h2>
+				<p class="text-[13px] tracking-[0.08em] uppercase text-brand">Bryggmästare</p>
+			</article>
+		</div>
+	</div>
+
+	<!-- Newsletter -->
+	<div class="mx-auto max-w-[720px] px-7 pt-16 pb-24">
+		<h2
+			class="mb-3.5 text-center font-display text-[clamp(28px,4vw,44px)] font-bold tracking-[-0.02em] text-ink"
+		>
+			Joina klubben
+		</h2>
+		<div
+			class="mx-auto mb-8 flex max-w-[520px] flex-col gap-3 text-center text-[14px] leading-[1.7] text-charcoal"
+		>
+			<p>
+				Vill du vara en av de som får reda på aktiviteter runt bryggeriet, eller när vi skapat nya
+				smaker eller annan info runt vårat företag? Fyll i dina kontaktuppgifter nedan i så fall. =)
+			</p>
+			<p class="text-muted">
+				Vi kommer inte dela informationen eller skicka några (vad vi tycker) onödiga mail.
+			</p>
+		</div>
+
+		<ContactForm address />
+
+		<div class="mt-12 text-center">
+			<a class="btn btn-secondary" href="/stores">
+				<span>Hitta vår kombucha</span>
+				<span aria-hidden="true">→</span>
+			</a>
 		</div>
 	</div>
 </section>
-
-<!-- Contact -->
-<section class="flex flex-col justify-center bg-cream px-4 pt-24 pb-24 text-brand">
-	<ContactForm />
-</section>
-
-<!-- Divider -->
-<div class="flex w-full justify-center bg-cream px-4 pt-4 pb-4 text-brand">
-	<div class="h-0 w-full max-w-7xl border-t border-current"></div>
-</div>

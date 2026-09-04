@@ -1,6 +1,23 @@
 <script>
-	import Arrow from '$lib/components/Arrow.svelte';
 	import ContactForm from '$lib/components/ContactForm.svelte';
+
+	const flavours = [
+		{
+			name: 'Ingefära',
+			note: 'Het, rak och lite bitande.',
+			img: '/images/bottle-ingefara.png'
+		},
+		{
+			name: 'Hallon',
+			note: 'Syrlig, bärig och torr i avslutet.',
+			img: '/images/bottle-hallon.png'
+		},
+		{
+			name: 'Blåbär',
+			note: 'Mörkt bär, mjuk sötma, frisk syra.',
+			img: '/images/bottle-blabar.png'
+		}
+	];
 </script>
 
 <svelte:head>
@@ -13,96 +30,101 @@
 	<meta property="og:image" content="https://www.hejkombucha.se/images/og-share2.jpg" />
 </svelte:head>
 
-<h1 class="sr-only">Home</h1>
-
-<!-- Divider -->
-<div class="flex w-full justify-center bg-cream pt-0 pb-6 text-brand">
-	<div class="h-0 w-full max-w-7xl border-t border-current"></div>
-</div>
-
 <!-- Hero -->
-<section class="flex justify-center">
+<section class="relative border-b-[1.5px] border-ink">
 	<div
-		class="relative flex w-full max-w-7xl flex-col justify-center bg-cream px-12 pt-20 pb-96 text-brand"
-	>
-		<div
-			class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-			style="background-image:url('/images/DSCF0721.jpg');opacity:0.85"
-		></div>
-		<div class="relative w-full">
-			<div class="flex w-full flex-1 flex-col">
-				<h2 class="text-left text-5xl font-semibold xs:text-6xl">
-					Riktig frukt, naturliga ingredienser.
-				</h2>
-				<p class="mt-4 text-left text-xl sm:text-2xl">Inga konstigheter</p>
-				<div class="mt-8">
-					<a class="btn btn-primary lg:whitespace-nowrap" href="/stores">
-						<span>Återförsäljare</span>
-						<Arrow />
-					</a>
-				</div>
-			</div>
+		class="absolute inset-0 bg-cover bg-center bg-no-repeat grayscale contrast-[1.05]"
+		style="background-image:url('/images/DSCF0721.jpg')"
+	></div>
+	<div
+		class="absolute inset-0"
+		style="background:linear-gradient(90deg, rgba(17,17,17,0.62) 0%, rgba(17,17,17,0.25) 60%, rgba(17,17,17,0.1) 100%)"
+	></div>
+	<div class="relative mx-auto max-w-[1140px] px-7 pt-24 pb-28 sm:pt-30 sm:pb-35">
+		<div class="kicker kicker-paper">Inga konstigheter</div>
+		<h1
+			class="mt-3.5 mb-7 max-w-[760px] font-display text-[clamp(44px,7vw,84px)] leading-[0.98] font-bold tracking-[-0.02em] text-cream"
+		>
+			Riktig frukt,<br />naturliga ingredienser.
+		</h1>
+		<div class="flex flex-wrap gap-3.5">
+			<a class="btn btn-primary btn-lg" href="/stores">
+				<span>Återförsäljare</span>
+				<span aria-hidden="true">→</span>
+			</a>
+			<a class="btn btn-inverse btn-lg" href="/about">
+				<span>Vår historia</span>
+			</a>
 		</div>
 	</div>
 </section>
 
 <!-- Quote -->
-<section class="flex flex-col justify-center bg-cream px-4 pt-28 pb-36 text-brand">
-	<div class="flex w-full justify-center">
-		<blockquote class="w-full max-w-7xl">
-			<div class="text-center text-4xl sm:text-6xl sm:leading-tight">
-				<p>
-					"Vårat mål är att skapa en produkt med naturliga ingredienser och så lite miljöpåverkan
-					som möjligt."
-				</p>
-			</div>
+<section class="border-b-[1.5px] border-ink bg-cream">
+	<div class="mx-auto max-w-[860px] px-7 py-24 text-center">
+		<blockquote
+			class="font-display text-[clamp(26px,4vw,42px)] leading-[1.18] font-medium tracking-[-0.01em] text-ink"
+		>
+			”Vårat mål är att skapa en produkt med naturliga ingredienser och så lite miljöpåverkan som
+			möjligt.”
 		</blockquote>
 	</div>
 </section>
 
-<!-- Instagram -->
-<section class="flex flex-col justify-center bg-brand px-4 pt-36 pb-36 text-cream">
-	<div class="flex w-full justify-center">
-		<div class="w-full max-w-5xl text-center sm:text-lg">
-			<h2>
-				<a class="underline hover:no-underline" href="https://www.instagram.com/hejkombucha/"
-					><em>Följ oss på instagram</em></a
-				>
-			</h2>
+<!-- Flavours -->
+<section class="border-b-[1.5px] border-ink bg-white">
+	<div class="mx-auto max-w-[1140px] px-7 py-18">
+		<div class="kicker">33 cl · bryggt i Lindbacka</div>
+		<h2
+			class="mt-3 mb-9 font-display text-[clamp(30px,4vw,48px)] font-bold tracking-[-0.02em] text-ink"
+		>
+			Smakerna
+		</h2>
+		<div class="grid gap-5 md:grid-cols-3">
+			{#each flavours as flavour (flavour.name)}
+				<article class="card card-interactive gap-3 p-6">
+					<span class="kicker">Kombucha · 33 cl</span>
+					<div
+						class="flex h-[320px] items-center justify-center border-b-[1.5px] border-ink bg-cream py-4.5"
+					>
+						<img
+							class="block h-full w-auto object-contain"
+							src={flavour.img}
+							alt="Hej Kombucha {flavour.name}"
+						/>
+					</div>
+					<div
+						class="pt-4.5 pb-3.5 font-display text-[40px] leading-none font-bold tracking-[-0.02em] text-brand"
+					>
+						{flavour.name}
+					</div>
+					<div class="border-t-[1.5px] border-ink pt-3.5 text-[14px] leading-[1.55]">
+						{flavour.note}
+					</div>
+					<div class="mt-auto pt-3">
+						<a class="btn btn-link" href="/stores">
+							<span>Hitta i butik</span>
+							<span aria-hidden="true">→</span>
+						</a>
+					</div>
+				</article>
+			{/each}
 		</div>
 	</div>
 </section>
 
-<!-- Feature highlight -->
-<section
-	class="relative flex flex-col items-center justify-center bg-cream px-4 pt-36 pb-72 text-brand"
->
-	<div
-		class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-		style="background-image:url('/images/DSCF0727-2.jpg');opacity:0.9"
-	></div>
-	<div class="relative flex w-full max-w-7xl justify-start">
-		<div class="card max-w-2xl px-6 py-10 sm:px-12 sm:py-14">
-			<h2 class="text-left">Stick och köp kombucha nu!</h2>
-			<div class="markdown mt-6 text-left sm:text-lg">
-				<p>Här kan du hitta våra återförsäljare.</p>
-			</div>
-			<div class="mt-8">
-				<a class="link lg:whitespace-nowrap" href="/stores">
-					<span>Återförsäljare</span>
-					<Arrow />
-				</a>
-			</div>
-		</div>
+<!-- Newsletter -->
+<section class="border-b-[1.5px] border-ink bg-brand">
+	<div class="mx-auto max-w-[720px] px-7 py-22 text-center">
+		<div class="kicker kicker-paper">Joina klubben</div>
+		<h2
+			class="mt-3 mb-3.5 font-display text-[clamp(28px,4vw,44px)] font-bold tracking-[-0.02em] text-cream"
+		>
+			Få reda på nya smaker först
+		</h2>
+		<p class="mx-auto mb-7 max-w-[460px] text-[14px] leading-[1.6] text-cream/90">
+			Vi delar inte din info och skickar inga (vad vi tycker) onödiga mail. =)
+		</p>
+		<ContactForm tone="brand" done="Tack! Vi hörs snart." />
 	</div>
 </section>
-
-<!-- Contact -->
-<section class="flex flex-col justify-center bg-cream px-4 pt-24 pb-24 text-brand">
-	<ContactForm />
-</section>
-
-<!-- Divider -->
-<div class="flex w-full justify-center bg-cream px-4 pt-4 pb-4 text-brand">
-	<div class="h-0 w-full max-w-7xl border-t border-current"></div>
-</div>
