@@ -85,7 +85,7 @@
 				<article class="card card-interactive gap-3 p-6">
 					<span class="kicker">Kombucha · 33 cl</span>
 					<div
-						class="flex h-[320px] items-center justify-center border-b-[1.5px] border-ink bg-cream py-4.5"
+						class="flex h-[320px] items-center justify-center border-b-[1.5px] border-ink bg-white py-4.5"
 					>
 						<img
 							class="block h-full w-auto object-contain"

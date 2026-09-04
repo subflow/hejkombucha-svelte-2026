@@ -15,11 +15,11 @@
 </script>
 
 <header class="sticky top-0 z-20 border-b-[1.5px] border-ink bg-cream/92 backdrop-blur-[6px]">
-	<div class="mx-auto flex max-w-[1140px] items-center justify-between gap-6 px-7 py-5">
+	<div class="mx-auto flex max-w-[1140px] items-center justify-between gap-6 px-7 py-6">
 		<a href="#main" class="sr-only">Skip to main content</a>
 
 		<a aria-label="Hej Kombucha" class="flex items-center gap-3" href="/">
-			<img class="h-[52px] w-auto" src="/images/hkb2026.png" alt="Hej Kombucha" />
+			<img class="h-[64px] w-auto" src="/images/hkb2026.png" alt="Hej Kombucha" />
 		</a>
 
 		<!-- Desktop navigation -->
@@ -57,11 +57,11 @@
 
 	<!-- Mobile menu -->
 	{#if open}
-		<div class="fixed inset-0 z-30 overflow-y-auto bg-cream px-7 py-5 text-ink">
+		<div class="fixed inset-0 z-30 overflow-y-auto bg-cream px-7 py-6 text-ink">
 			<div class="flex min-h-full flex-col">
 				<div class="mb-10 flex items-center justify-between">
 					<a aria-label="Hej Kombucha" class="flex items-center" href="/">
-						<img class="h-[52px] w-auto" src="/images/hkb2026.png" alt="Hej Kombucha" />
+						<img class="h-[64px] w-auto" src="/images/hkb2026.png" alt="Hej Kombucha" />
 					</a>
 					<button
 						aria-label="Stäng menyn"
