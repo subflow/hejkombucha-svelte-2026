@@ -83,7 +83,7 @@ No test framework is configured. There is no single-test command.
   shared `subscribe` action in `src/lib/server/subscribe.js`, re-exported by each page's
   `+page.server.js`. `/bli-aterforsaljare` has its own `apply` action. Both use `use:enhance`
   and a hidden `website` honeypot field (filled = bot → pretend success, store nothing).
-- **Mail**: `src/lib/server/mail.ts` wraps **Resend**. `notify()` mails the brewery
+- **Mail**: `src/lib/server/mail.ts` wraps **Resend**. `notify()` mails every admin in the `user` table (fallback: yo@hejkombucha.se) with an `/admin` link
   (best-effort, never fails the form), `addContact()` mirrors a subscriber into the Resend
   segment, `sendNewsletter()` creates + sends a Broadcast to `RESEND_SEGMENT_ID`. Resend v6
   uses _segments_ (audiences are deprecated). With no `RESEND_API_KEY` mail is logged to the

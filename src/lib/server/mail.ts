@@ -1,7 +1,10 @@
 import { Resend } from 'resend';
 import { env } from '$env/dynamic/private';
+import { db } from '$lib/server/db';
+import { user } from '$lib/server/db/schema';
 
-const NOTIFY_TO = 'yo@hejkombucha.se';
+/** Reservmottagare om user-tabellen skulle vara tom (innan första admin är seedad). */
+const FALLBACK_TO = 'yo@hejkombucha.se';
 
 // ponytail: ingen nyckel → logga istället för att skicka, så lokal dev funkar utan Resend-konto.
 const resend = env.RESEND_API_KEY ? new Resend(env.RESEND_API_KEY) : null;
@@ -10,9 +13,9 @@ const resend = env.RESEND_API_KEY ? new Resend(env.RESEND_API_KEY) : null;
 const from = () => env.RESEND_FROM || 'Hej Kombucha <onboarding@resend.dev>';
 
 /** Skickar ett klartextmail. Best effort — kastar aldrig, returnerar om det gick. */
-export async function send(to: string, subject: string, text: string): Promise<boolean> {
+export async function send(to: string | string[], subject: string, text: string): Promise<boolean> {
 	if (!resend) {
-		console.log(`[mail → ${to}] ${subject}\n${text}`);
+		console.log(`[mail → ${[to].flat().join(', ')}] ${subject}\n${text}`);
 		return false;
 	}
 	try {
@@ -28,9 +31,23 @@ export async function send(to: string, subject: string, text: string): Promise<b
 	}
 }
 
-/** Internt notis-mail till bryggeriet. Får aldrig fälla formuläret som anropar. */
+/** Alla admins mailadresser — det är de som får interna notiser. */
+async function adminEmails(): Promise<string[]> {
+	const rows = await db.select({ email: user.email }).from(user);
+	return rows.length ? rows.map((r) => r.email) : [FALLBACK_TO];
+}
+
+/**
+ * Intern notis till alla admins (ny prenumerant, ny återförsäljaransökan …).
+ * Får aldrig fälla formuläret som anropar — loggar och går vidare vid fel.
+ */
 export async function notify(subject: string, text: string): Promise<void> {
-	await send(NOTIFY_TO, subject, text);
+	try {
+		const footer = env.ORIGIN ? `\n\nAdmin: ${env.ORIGIN}/admin` : '';
+		await send(await adminEmails(), subject, text + footer);
+	} catch (e) {
+		console.error('notify: kunde inte skicka', e);
+	}
 }
 
 /**
