@@ -122,5 +122,21 @@
 				</article>
 			{/each}
 		</div>
+
+		<!-- CTA för nya återförsäljare -->
+		<div
+			class="mt-16 border-[1.5px] border-ink bg-white p-8 sm:flex sm:items-center sm:justify-between sm:gap-8"
+		>
+			<div>
+				<div class="kicker">Driver du butik, kafé eller restaurang?</div>
+				<h2 class="mt-2 font-display text-2xl font-bold tracking-[-0.02em] text-ink">
+					Sälj Hej Kombucha hos dig
+				</h2>
+			</div>
+			<a class="btn btn-primary mt-5 shrink-0 sm:mt-0" href="/bli-aterforsaljare">
+				<span>Bli återförsäljare</span>
+				<span aria-hidden="true">→</span>
+			</a>
+		</div>
 	</div>
 </section>

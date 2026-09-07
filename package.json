@@ -11,7 +11,14 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"db:start": "docker compose up",
+		"db:push": "drizzle-kit push",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate",
+		"db:studio": "drizzle-kit studio",
+		"auth:schema": "auth generate --config src/lib/server/auth.ts --output src/lib/server/db/auth.schema.ts --yes",
+		"seed:admin": "bun scripts/seed-admin.ts"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",
@@ -21,11 +28,17 @@
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@tailwindcss/typography": "^0.5.20",
 		"@tailwindcss/vite": "^4.3.1",
+		"@types/node": "^22",
+		"auth": "^1.6.23",
+		"better-auth": "^1.6.23",
+		"drizzle-kit": "^0.31.10",
+		"drizzle-orm": "^0.45.2",
 		"eslint": "^10.6.0",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.20.0",
 		"globals": "^17.7.0",
 		"mdsvex": "^0.12.7",
+		"postgres": "^3.4.9",
 		"prettier": "^3.9.1",
 		"prettier-plugin-svelte": "^4.1.1",
 		"prettier-plugin-tailwindcss": "^0.8.0",
@@ -37,6 +50,6 @@
 		"vite": "^8.1.0"
 	},
 	"dependencies": {
-		"@sveltia/cms": "^0.168.0"
+		"resend": "^6.26.0"
 	}
 }

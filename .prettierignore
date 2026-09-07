@@ -9,3 +9,4 @@ bun.lockb
 /static/
 /html-version/
 .claude/
+/drizzle/

@@ -1,19 +1,23 @@
 <script>
+	import { enhance } from '$app/forms';
+
 	// Newsletter sign-up. Two tones in the design: the red band on the home page
 	// and the paper section on /about (which also asks for an address).
+	// Posts to the `subscribe` action on whichever page it sits on.
 	let { tone = 'paper', address = false, done = 'Tack för din anmälan!' } = $props();
 
 	let submitted = $state(false);
+	let error = $state('');
 
-	/** @param {SubmitEvent & { currentTarget: HTMLFormElement }} e */
-	function handleSubmit(e) {
-		e.preventDefault();
-		const data = Object.fromEntries(new FormData(e.currentTarget));
-		// ponytail: demo only — log instead of POSTing. Wire to a backend when one exists.
-		console.log('Sign-up form:', data);
-		submitted = true;
-		e.currentTarget.reset();
-	}
+	/** @type {import('@sveltejs/kit').SubmitFunction} */
+	const onSubmit = () => {
+		error = '';
+		return ({ result }) => {
+			if (result.type === 'success') submitted = true;
+			else if (result.type === 'failure') error = String(result.data?.error ?? 'Något gick fel.');
+			else error = 'Något gick fel, försök igen.';
+		};
+	};
 </script>
 
 {#if submitted}
@@ -23,7 +27,22 @@
 		<p class="text-center text-[15px] text-ink">{done}</p>
 	{/if}
 {:else}
-	<form name="sign-up-form" class="flex flex-col gap-3.5 text-left" onsubmit={handleSubmit}>
+	<form
+		method="POST"
+		action="?/subscribe"
+		class="flex flex-col gap-3.5 text-left"
+		use:enhance={onSubmit}
+	>
+		<!-- Honeypot — dolt för människor, bottar fyller i det. -->
+		<input
+			type="text"
+			name="website"
+			tabindex="-1"
+			autocomplete="off"
+			class="hidden"
+			aria-hidden="true"
+		/>
+
 		<div class="grid gap-3 sm:grid-cols-2">
 			<div>
 				<label class="sr-only" for="firstName">Förnamn</label>
@@ -58,6 +77,10 @@
 			<input type="checkbox" name="updatesConsent" required />
 			<span>Japp, jag godkänner att ni kontaktar mig då och då.</span>
 		</label>
+
+		{#if error}
+			<p class="text-[14px] {tone === 'brand' ? 'text-cream' : 'text-brand'}">{error}</p>
+		{/if}
 
 		<div class={tone === 'brand' ? '' : 'mt-2 text-center'}>
 			<button

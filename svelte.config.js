@@ -22,7 +22,12 @@ const config = {
 		})
 	],
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		typescript: {
+			config: (config) => {
+				config.include.push('../drizzle.config.ts');
+			}
+		}
 	},
 	extensions: ['.svelte', '.svx', '.md']
 };

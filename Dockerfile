@@ -14,6 +14,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 # adapter-node listens on 0.0.0.0:3000 by default; honors PORT/HOST/ORIGIN env vars.
 ENV PORT=3000
+# Krävs bakom proxy: SvelteKit CSRF-skyddet jämför formulär-POST mot ORIGIN. Coolify kan skriva över.
+ENV ORIGIN=https://hejkombucha.se
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
 COPY --from=builder /app/build ./build

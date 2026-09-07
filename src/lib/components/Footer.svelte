@@ -2,6 +2,7 @@
 	const nav = [
 		{ href: '/', label: 'Hem' },
 		{ href: '/stores', label: 'Återförsäljare' },
+		{ href: '/bli-aterforsaljare', label: 'Bli återförsäljare' },
 		// { href: '/blog', label: 'Aktuellt' }, // hidden for now — re-enable when there are fresh posts
 		{ href: '/about', label: 'Om oss' }
 	];
