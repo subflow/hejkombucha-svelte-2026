@@ -88,6 +88,16 @@ No test framework is configured. There is no single-test command.
   segment, `sendNewsletter()` creates + sends a Broadcast to `RESEND_SEGMENT_ID`. Resend v6
   uses _segments_ (audiences are deprecated). With no `RESEND_API_KEY` mail is logged to the
   console so local dev works without an account.
+- **Newsletter editor** (`/admin/nyhetsbrev`): block-based (heading / text / image / button /
+  divider) so non-technical admins can compose. Blocks are serialised to JSON in the
+  `use:enhance` submit callback, validated server-side in `src/lib/server/newsletter.ts`
+  (`parseBlocks`, http(s)-only URLs, length caps) and rendered by
+  `src/lib/server/emails/Newsletter.svelte` through **better-svelte-email**
+  (`@better-svelte-email/server` `Renderer` inlines Tailwind classes into email-safe HTML at
+  render time — brand colours are literals like `bg-[#f24440]` because that Tailwind does not
+  see `app.css`). Text blocks go through `emails/html.ts` (`textToHtml`: escape → paragraphs →
+  auto-link). Preview / test-to-self / send-to-all all render through the same `build()` so
+  what is previewed is what is sent; `send` requires the confirm checkbox server-side.
 - **Admin** (`/admin`): **Better Auth** (email + password, `better-auth/minimal`, Drizzle
   adapter). Config in `src/lib/server/auth.ts`; `src/hooks.server.ts` resolves the session into
   `locals.user` and redirects unauthenticated `/admin/*` to `/admin/login` — the guard lives in

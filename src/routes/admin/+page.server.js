@@ -5,17 +5,9 @@ import { auth } from '$lib/server/auth';
 import { createAdmin } from '$lib/server/admins';
 import { db } from '$lib/server/db';
 import { retailerApplications, subscribers, user } from '$lib/server/db/schema';
-import { sendNewsletter } from '$lib/server/mail';
 
 const STATUSES = ['ny', 'kontaktad', 'klar'];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-/** @param {string} s */
-const esc = (s) =>
-	s.replace(
-		/[&<>"']/g,
-		(c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] ?? c
-	);
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals }) {
@@ -76,32 +68,5 @@ export const actions = {
 		const status = String(f.get('status') ?? '');
 		if (!id || !STATUSES.includes(status)) return fail(400);
 		await db.update(retailerApplications).set({ status }).where(eq(retailerApplications.id, id));
-	},
-
-	sendNewsletter: async ({ request }) => {
-		const f = await request.formData();
-		const subject = String(f.get('subject') ?? '').trim();
-		const body = String(f.get('body') ?? '').trim();
-		if (!subject || !body) return fail(400, { error: 'Ämne och innehåll krävs.', subject, body });
-		if (!f.get('confirm')) return fail(400, { error: 'Bekräfta utskicket först.', subject, body });
-
-		// Klartext → stycken. Resend byter ut {{{RESEND_UNSUBSCRIBE_URL}}} per mottagare.
-		const html =
-			body
-				.split(/\n{2,}/)
-				.map((p) => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`)
-				.join('') +
-			`<p style="font-size:12px;color:#6b6b66">Vill du inte ha fler mail från oss? <a href="{{{RESEND_UNSUBSCRIBE_URL}}}">Avregistrera dig här</a>.</p>`;
-
-		try {
-			const id = await sendNewsletter(subject, html);
-			return { sent: id };
-		} catch (e) {
-			return fail(500, {
-				error: e instanceof Error ? e.message : 'Utskicket misslyckades.',
-				subject,
-				body
-			});
-		}
 	}
 };

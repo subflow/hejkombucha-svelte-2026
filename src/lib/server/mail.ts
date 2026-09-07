@@ -12,14 +12,25 @@ const resend = env.RESEND_API_KEY ? new Resend(env.RESEND_API_KEY) : null;
 // Måste vara en adress på en domän som är verifierad i Resend. Sätt RESEND_FROM i miljön.
 const from = () => env.RESEND_FROM || 'Hej Kombucha <onboarding@resend.dev>';
 
-/** Skickar ett klartextmail. Best effort — kastar aldrig, returnerar om det gick. */
-export async function send(to: string | string[], subject: string, text: string): Promise<boolean> {
+/** Skickar ett mail (klartext, valfritt även HTML). Best effort — kastar aldrig, returnerar om det gick. */
+export async function send(
+	to: string | string[],
+	subject: string,
+	text: string,
+	html?: string
+): Promise<boolean> {
 	if (!resend) {
 		console.log(`[mail → ${[to].flat().join(', ')}] ${subject}\n${text}`);
 		return false;
 	}
 	try {
-		const { error } = await resend.emails.send({ from: from(), to, subject, text });
+		const { error } = await resend.emails.send({
+			from: from(),
+			to,
+			subject,
+			text,
+			...(html ? { html } : {})
+		});
 		if (error) {
 			console.error('send: Resend svarade med fel', error);
 			return false;
@@ -75,7 +86,12 @@ export async function addContact(c: {
 }
 
 /** Skapar och skickar ett nyhetsbrev till hela segmentet. Kastar vid fel så admin ser varför. */
-export async function sendNewsletter(subject: string, html: string): Promise<string> {
+export async function sendNewsletter(
+	subject: string,
+	html: string,
+	text?: string,
+	previewText?: string
+): Promise<string> {
 	if (!resend) throw new Error('RESEND_API_KEY är inte satt på servern.');
 	if (!env.RESEND_SEGMENT_ID) throw new Error('RESEND_SEGMENT_ID är inte satt på servern.');
 
@@ -84,6 +100,8 @@ export async function sendNewsletter(subject: string, html: string): Promise<str
 		from: from(),
 		subject,
 		html,
+		...(text ? { text } : {}),
+		...(previewText ? { previewText } : {}),
 		send: true
 	});
 	if (error || !data) throw new Error(error?.message ?? 'Kunde inte skapa utskicket.');

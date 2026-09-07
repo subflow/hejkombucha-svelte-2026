@@ -35,62 +35,25 @@
 		<!-- Nyhetsbrev -->
 		<section>
 			<div class="kicker">Nyhetsbrev</div>
-			<h1 class="mt-2 mb-6 font-display text-4xl font-bold tracking-[-0.02em]">Skicka utskick</h1>
-
-			{#if form?.sent}
-				<div class="max-w-[720px] border-[1.5px] border-ink bg-white p-6">
-					<div class="kicker mb-2">Skickat</div>
-					<p class="text-[14px] leading-[1.6] text-charcoal">
-						Utskicket är på väg. Resend-id: <code class="text-ink">{form.sent}</code>
+			<h1 class="mt-2 mb-6 font-display text-4xl font-bold tracking-[-0.02em]">Utskick</h1>
+			<a
+				href="/admin/nyhetsbrev"
+				class="card card-interactive block max-w-[720px] p-6 no-underline sm:flex sm:items-center sm:justify-between sm:gap-8"
+			>
+				<div>
+					<h2 class="font-display text-2xl font-bold tracking-[-0.02em] text-ink">
+						Skapa ett utskick
+					</h2>
+					<p class="mt-1 text-[14px] leading-[1.6] text-charcoal">
+						Bygg mailet av block, förhandsgranska, skicka ett test till dig själv — och sedan till
+						alla {data.subscribers.length} prenumeranter.
 					</p>
 				</div>
-			{:else}
-				<form
-					method="POST"
-					action="?/sendNewsletter"
-					use:enhance
-					class="flex max-w-[720px] flex-col gap-3.5"
-				>
-					<div>
-						<label class="sr-only" for="subject">Ämne</label>
-						<input
-							class="field"
-							id="subject"
-							name="subject"
-							required
-							placeholder="Ämne"
-							value={form?.subject ?? ''}
-						/>
-					</div>
-					<div>
-						<label class="sr-only" for="body">Innehåll</label>
-						<textarea
-							class="field"
-							id="body"
-							name="body"
-							rows="12"
-							required
-							placeholder="Skriv i klartext. Tom rad = nytt stycke. Avregistreringslänk läggs till automatiskt längst ner."
-							>{form?.body ?? ''}</textarea
-						>
-					</div>
-					<label class="check text-charcoal">
-						<input type="checkbox" name="confirm" required />
-						<span>
-							Ja, skicka till alla {data.subscribers.length} prenumeranter. Det går inte att ångra.
-						</span>
-					</label>
-					{#if form?.error}
-						<p class="text-[14px] text-brand">{form.error}</p>
-					{/if}
-					<div>
-						<button type="submit" class="btn btn-primary btn-lg">
-							<span>Skicka utskick</span>
-							<span aria-hidden="true">→</span>
-						</button>
-					</div>
-				</form>
-			{/if}
+				<span class="btn btn-primary mt-4 shrink-0 sm:mt-0">
+					<span>Nytt utskick</span>
+					<span aria-hidden="true">→</span>
+				</span>
+			</a>
 		</section>
 
 		<!-- Återförsäljaransökningar -->
@@ -188,6 +151,7 @@
 				</div>
 			{/if}
 		</section>
+
 		<!-- Admins -->
 		<section>
 			<div class="kicker">Konton</div>
