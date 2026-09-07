@@ -7,6 +7,8 @@ COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
+# Migrations + första-admin-seed som en fristående fil, så runtime-imagen slipper src/ och dev-deps.
+RUN bun build scripts/migrate.ts --target=bun --outfile build/migrate.js
 
 # --- Runtime stage: production deps + build output only ---
 FROM oven/bun:1
@@ -19,5 +21,7 @@ ENV ORIGIN=https://hejkombucha.se
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
 COPY --from=builder /app/build ./build
+COPY drizzle ./drizzle
 EXPOSE 3000
-CMD ["bun", "./build/index.js"]
+# Migrera (och seeda första admin om tomt) innan servern startar. Misslyckas migrationen startar inte servern.
+CMD ["sh", "-c", "bun ./build/migrate.js && bun ./build/index.js"]
