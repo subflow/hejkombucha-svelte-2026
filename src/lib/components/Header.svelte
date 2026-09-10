@@ -7,7 +7,6 @@
 		{ href: '/', label: 'Hem' },
 		{ href: '/drinkar', label: 'Drinkar' },
 		{ href: '/stores', label: 'Återförsäljare' },
-		{ href: '/bli-aterforsaljare', label: 'Bli återförsäljare' },
 		// { href: '/blog', label: 'Aktuellt' }, // hidden for now — re-enable when there are fresh posts
 		{ href: '/about', label: 'Om oss' }
 	];
